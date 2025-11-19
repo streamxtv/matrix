@@ -25,7 +25,7 @@
 </addon>
 
 <addon id="repository.streamxtv.matrix"
-version="2.4.9"
+version="2.5.1"
 name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
 provider-name="CRIADO POR BL4444CK">
 <requires>
