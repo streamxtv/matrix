@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.streamxtv.matrix"
        name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
-       version="2.5.5"
+       version="2.5.6"
        provider-name="CRIADO POR BL4444CK">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
@@ -11,9 +11,9 @@
     <extension point="xbmc.addon.repository" name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]">
         <dir miniversion="18.9.1">
             <!-- CORREÇÃO: Links apontando para o GitHub Pages, que funciona 100% -->
-            <info compressed="false">https://streamxtv.github.io/matrix/addons.xml</info>
-            <checksum>https://streamxtv.github.io/matrix/addons.xml.md5</checksum>
-            <datadir zip="true">https://streamxtv.github.io/matrix/</datadir>
+            <info compressed="false">https://streamxtv.pages.dev/matrix/addons.xml</info>
+            <checksum>https://streamxtv.pages.dev/matrix/addons.xml.md5</checksum>
+            <datadir zip="true">https://streamxtv.pages.dev/matrix/</datadir>
         </dir>
     </extension>
 
