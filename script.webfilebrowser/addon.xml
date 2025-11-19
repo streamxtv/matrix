@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.webfilebrowser" name="[B][COLOR orange]KODI MANAGER[/B][/COLOR]" version="1.0.7" provider-name="bl4444ck">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="default.py"/>
+  <extension point="xbmc.service" library="service.py" start="login"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_gb">A web-based file manager and log viewer for Kodi.</summary>
+    <summary lang="pt_br">Um gerenciador de arquivos e visualizador de logs para o Kodi, acessível via navegador.</summary>
+    <description lang="en_gb">This addon runs a web server that allows you to browse your entire Kodi home folder from any web browser on your network. You can navigate through folders, download files or full folders as a ZIP archive, and monitor the Kodi log file in real-time.</description>
+    <description lang="pt_br">Este addon executa um servidor web que permite a você navegar por toda a pasta 'home' do seu Kodi a partir de qualquer navegador na sua rede. Você pode navegar pelas pastas, baixar arquivos ou pastas completas como um arquivo ZIP, e monitorar o arquivo de log do Kodi em tempo real.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>

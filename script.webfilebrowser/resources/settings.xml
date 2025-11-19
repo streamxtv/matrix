@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+  <category label="30012">
+    <setting id="http_server" type="bool" label="30019" default="false"/>
+    <setting id="port" type="number" label="30020" default="8080" enable="eq(-1,true)"/>
+  </category>
+</settings>
