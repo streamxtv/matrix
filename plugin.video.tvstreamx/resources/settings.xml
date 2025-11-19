@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <!-- Categoria de Login -->
+    <category label="Configurações de Acesso">
+        <setting id="username" type="text" label="Usuário" default="" />
+        <setting id="password" type="text" label="Senha" option="hidden" default="" />
+    </category>
+</settings>
