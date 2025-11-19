@@ -2,47 +2,36 @@
 layout: default
 ---
 <style>
-  /* Remove a tarja branca do final */
+  /* Estilo Dark */
   html, body { background-color: #151515; min-height: 100%; }
   
-  /* Remove o botão View on GitHub */
+  /* Se quiser esconder o botão padrão do GitHub no topo */
   header a.btn { display: none !important; }
 </style>
 
 # 🕶️ REPOSITÓRIO STREAMXTV MATRIX
 
-Novo endereço oficial para o repositório **Streamxtv Matrix**.
+Bem-vindo ao repositório oficial.
 
-> **Atenção:** Mantenha o repositório instalado para receber atualizações automáticas dos addons.
+> **STATUS:** ONLINE ✅
 
-## ⚙️ Tutorial de Instalação
+## ⚙️ Instalação no Kodi
 
-Siga o passo a passo no seu **Kodi**:
-
-### 1. Adicionar a Fonte
-Vá em **Gestor de Arquivos > Adicionar Fonte**. Clique em `<Nenhum>` e digite exatamente este endereço:
-
-<pre><code>https://streamxtv.github.io/matrix/</code></pre>
-
-Dê o nome de **.streamxtv** e clique em OK.
-
-### 2. Instalar o Repositório
-Volte ao menu inicial, vá em **Add-ons > Instalar via Arquivo Zip**. Selecione a fonte **.streamxtv** e clique no arquivo:
-
-- [x] **repository.streamxtv.matrix.zip**
+1. **Gestor de Arquivos > Adicionar Fonte**
+2. Digite a URL:
+   <pre><code>{{ site.url }}{{ site.baseurl }}/</code></pre>
+3. Nomeie como **.streamxtv**
+4. Vá em **Add-ons > Instalar via Arquivo Zip** > **.streamxtv**
 
 ---
 
-## 📂 Download Manual
+## 📂 Arquivo do Repositório
 
-Se preferir baixar o arquivo pelo navegador:
+O link abaixo é gerado automaticamente pelo sistema:
 
-[⬇️ Clique aqui para baixar o repository.streamxtv.matrix.zip](repository.streamxtv.matrix.zip)
+<!-- AQUI ESTÁ A CORREÇÃO: O uso de site.url e site.baseurl garante que o link fique completo -->
+### [⬇️ repository.streamxtv.matrix.zip]({{ site.url }}{{ site.baseurl }}/repository.streamxtv.matrix.zip)
 
 <br>
-
-
-
-
 
 <small>Mantido por bl4444ck • Matrix Version</small>
