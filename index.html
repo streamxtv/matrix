@@ -4,76 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REPO STREAMXTV MATRIX</title>
+    <!-- Fonte estilo Hacker/Tech -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        /* Estilo Visual (Hacker Theme) */
+        /* --- CONFIGURAÇÕES VISUAIS (O KODI IGNORA ISSO) --- */
+        :root {
+            --neon-green: #0f0;
+            --dark-bg: #050505;
+            --terminal-bg: #0a0a0a;
+            --border-color: #333;
+        }
+
         body {
-            background-color: #151515;
-            color: #b5e853;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--dark-bg);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
             margin: 0;
             padding: 20px;
+            background-image: 
+                linear-gradient(rgba(0, 20, 0, 0.9), rgba(0, 20, 0, 0.9)),
+                url('https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif'); /* Fundo Matrix sutil */
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #1e1e1e;
-            padding: 20px;
-            border: 1px solid #333;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
+
+        .system-container {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            padding: 30px;
+            position: relative;
+            border-radius: 5px;
         }
-        h1 { color: #ea4c89; border-bottom: 1px dashed #b5e853; padding-bottom: 10px; }
-        h2 { color: #fff; margin-top: 20px; font-size: 1.2em; }
-        code { background: #333; color: #fff; padding: 2px 5px; }
-        
-        /* ESTILO DA LISTA DE ARQUIVOS - OTIMIZADO PARA KODI */
-        .file-list {
-            background: #000;
-            border: 1px solid #444;
+
+        /* Efeito de scanline de monitor antigo */
+        .system-container::before {
+            content: "SYSTEM: ONLINE";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--dark-bg);
+            padding: 0 10px;
+            color: var(--neon-green);
+            font-size: 0.8rem;
+            border: 1px solid var(--neon-green);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--neon-green);
+            letter-spacing: 2px;
+        }
+
+        .status-bar {
+            border-bottom: 1px dashed var(--neon-green);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .tutorial-box {
+            background: #111;
+            border-left: 3px solid var(--neon-green);
             padding: 15px;
-            margin-top: 15px;
+            margin-bottom: 30px;
+            color: #ddd;
         }
-        .file-list a {
-            display: block; /* Um arquivo por linha */
-            color: #b5e853;
+
+        .tutorial-box code {
+            background: #222;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* --- A LISTA DE ARQUIVOS (A PARTE QUE O KODI LÊ) --- */
+        .repo-files {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Estilizando os links para parecerem botões futuristas */
+        .repo-files a {
+            display: block;
             text-decoration: none;
-            padding: 8px 0;
-            border-bottom: 1px solid #222;
+            color: var(--neon-green);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            background: rgba(0, 255, 0, 0.05);
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .repo-files a:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
+            border-color: var(--neon-green);
+            transform: scale(1.02);
             font-weight: bold;
         }
-        .file-list a:hover {
-            background-color: #222;
-            color: #fff;
-            padding-left: 10px;
-            transition: 0.3s;
+
+        /* Ícones via CSS */
+        .repo-files a::before { content: "[ARQUIVO] "; opacity: 0.5; font-size: 0.8em; }
+        .repo-files a[href="../"]::before { content: "[VOLTAR] "; }
+        .repo-files a[href$=".zip"]::before { content: "[BAIXAR] "; opacity: 1; }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 10px;
         }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🕶️ REPO STREAMXTV</h1>
-    <p>Bem-vindo ao repositório oficial.</p>
+    <div class="system-container">
+        <h1>STREAMXTV</h1>
+        <div class="status-bar">
+            :: REPOSITÓRIO MATRIX :: ACESSO AUTORIZADO ::
+        </div>
 
-    <h2>⚙️ Instalação no Kodi</h2>
-    <p>1. Adicionar Fonte: <code>https://streamxtv.github.io/matrix/</code></p>
-    <p>2. Instalar via Zip > <strong>.streamxtv</strong></p>
+        <div class="tutorial-box">
+            <strong>COMO INSTALAR:</strong><br><br>
+            1. No Kodi, vá em Ajustes > Gestor de Arquivos.<br>
+            2. Adicione a fonte: <code>https://streamxtv.github.io/matrix/</code><br>
+            3. Instale via Zip: <strong>repository.streamxtv.matrix.zip</strong>
+        </div>
 
-    <h2>📂 Arquivos Disponíveis</h2>
-    <p>Lista de arquivos do repositório:</p>
+        <h3>ARQUIVOS DO SISTEMA:</h3>
+        
+        <!-- AQUI ESTÁ A MÁGICA: Links limpos que o Kodi entende -->
+        <div class="repo-files">
+            <a href="../">../ (Diretório Anterior)</a>
+            <a href="addons.xml">addons.xml (Lista de Addons)</a>
+            <a href="addons.xml.md5">addons.xml.md5 (Verificação)</a>
+            <a href="repository.streamxtv.matrix.zip">repository.streamxtv.matrix.zip</a>
+        </div>
 
-    <!-- AQUI ESTA A LISTA LIMPA QUE O KODI LÊ -->
-    <div class="file-list">
-        <a href="../">../ (Voltar)</a>
-        <a href="addons.xml">addons.xml</a>
-        <a href="addons.xml.md5">addons.xml.md5</a>
-        <!-- LINK DO ZIP CORRIGIDO (SEM TAGS EXTRAS DENTRO) -->
-        <a href="repository.streamxtv.matrix.zip">repository.streamxtv.matrix.zip</a>
+        <div class="footer">
+            DEVELOPED BY BL4444CK // STREAMXTV CORPORATION
+        </div>
     </div>
-
-    <p style="text-align: center; margin-top: 30px; color: #666; font-size: 12px;">
-        Mantido por bl4444ck • Matrix Version
-    </p>
-</div>
 
 </body>
 </html>

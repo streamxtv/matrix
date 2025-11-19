@@ -4,68 +4,92 @@ import shutil
 import hashlib
 import zipfile
 import time
+import sys
 
 # ==========================================
 # CONFIGURAÇÕES
 # ==========================================
 NOME_REPO = "repository.streamxtv.matrix"
 ARQUIVO_XML = os.path.join(NOME_REPO, "addon.xml")
-# ==========================================
+
+# CORES PARA O TERMINAL
+class Cor:
+    VERDE = '\033[92m'
+    AMARELO = '\033[93m'
+    VERMELHO = '\033[91m'
+    AZUL = '\033[94m'
+    NEGRITO = '\033[1m'
+    RESET = '\033[0m'
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def banner():
+    print(Cor.VERDE + Cor.NEGRITO)
+    print(r"""
+  ____  _                              __   __ _______      __
+ / ___|| |_ _ __ ___  __ _ _ __ ___    \ \ / /|_   _\ \    / /
+ \___ \| __| '__/ _ \/ _` | '_ ` _ \    \ V /   | |  \ \  / / 
+  ___) | |_| | |  __/ (_| | | | | | |   /   \   | |   \ \/ /  
+ |____/ \__|_|  \___|\__,_|_| |_| |_|  /_/ \_\  |_|    \__/   
+    """ + Cor.RESET)
+    print(f"{Cor.AZUL}  :: AUTOMATOR MATRIX VERSION :: {Cor.RESET}\n")
+
+def barra_progresso(texto, tempo=0.5):
+    """Cria uma animação de barra de carregamento estilosa"""
+    print(f"{Cor.AMARELO}➤ {texto}{Cor.RESET}")
+    toolbar_width = 40
+    sys.stdout.write("[%s]" % (" " * toolbar_width))
+    sys.stdout.flush()
+    sys.stdout.write("\b" * (toolbar_width+1))
+
+    for i in range(toolbar_width):
+        time.sleep(tempo/toolbar_width) # Ajusta velocidade
+        sys.stdout.write("█")
+        sys.stdout.flush()
+    sys.stdout.write("]\n")
 
 def ler_versao_addon():
-    """ Lê apenas a versão do ADDON, ignorando o cabeçalho XML """
     if not os.path.exists(ARQUIVO_XML):
-        print(f"❌ ERRO CRÍTICO: Arquivo não encontrado: {ARQUIVO_XML}")
+        print(f"{Cor.VERMELHO}❌ ERRO CRÍTICO: Arquivo não encontrado: {ARQUIVO_XML}{Cor.RESET}")
         return None
 
     with open(ARQUIVO_XML, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
-    # Procura especificamente dentro da tag <addon ... version="...">
     padrao = re.compile(r'(<addon[^>]+version=")([^"]+)(")', re.DOTALL)
     match = padrao.search(conteudo)
 
     if match:
         return match.group(2)
     else:
-        print("❌ ERRO: Não consegui ler a versão do Addon. O arquivo está corrompido?")
+        print(f"{Cor.VERMELHO}❌ ERRO: Não consegui ler a versão do Addon.{Cor.RESET}")
         return None
 
 def corrigir_e_atualizar_xml(nova_versao):
-    print(f"🔧 Processando arquivo XML...")
-
+    barra_progresso("Analisando e corrigindo XML...")
+    
     with open(ARQUIVO_XML, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
-    # 1. CORREÇÃO DE SEGURANÇA: Força o cabeçalho XML para 1.0 (Padrão Mundial)
-    # Se estiver <?xml version="2.5.5"... ele corrige para "1.0"
-    # Isso evita que o Kodi rejeite o arquivo.
+    # Correção do Header 1.0
     if '<?xml' in conteudo:
         conteudo = re.sub(r'<\?xml[^>]+\?>', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', conteudo, count=1)
-        print("   -> Cabeçalho XML verificado/corrigido para 1.0.")
 
-    # 2. ATUALIZAÇÃO DO ADDON: Troca a versão do addon pela nova
+    # Atualização da Versão
     padrao_addon = re.compile(r'(<addon[^>]+version=")([^"]+)(")', re.DOTALL)
-    
-    # Verifica se vai haver mudança
-    match = padrao_addon.search(conteudo)
-    if match and match.group(2) == nova_versao:
-        print("⚠️  Atenção: A versão digitada é a mesma que já existe.")
-    
-    # Aplica a nova versão
     novo_conteudo = padrao_addon.sub(f'\\g<1>{nova_versao}\\g<3>', conteudo, count=1)
 
-    # Salva o arquivo corrigido e atualizado
     with open(ARQUIVO_XML, "w", encoding="utf-8") as f:
         f.write(novo_conteudo)
     
-    print(f"✅ XML Salvo! (Header: 1.0 | Addon: {nova_versao})")
+    print(f"{Cor.VERDE}✅ XML Atualizado e Salvo!{Cor.RESET}")
     return True
 
 def gerar_zips(versao):
-    print(f"\n📦 Gerando arquivos ZIP (Versão {versao})...")
+    barra_progresso(f"Compactando arquivos para v{versao}...", tempo=1.0)
     
-    # Remove Zips antigos da pasta para não duplicar
+    # Remove antigos
     for item in os.listdir(NOME_REPO):
         if item.endswith(".zip"):
             os.remove(os.path.join(NOME_REPO, item))
@@ -73,25 +97,22 @@ def gerar_zips(versao):
     zip_interno = os.path.join(NOME_REPO, f"{NOME_REPO}-{versao}.zip")
     zip_externo = f"{NOME_REPO}.zip"
 
-    # Cria o ZIP
     with zipfile.ZipFile(zip_interno, 'w', zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(NOME_REPO):
             for file in files:
                 if file.endswith(".zip") or file.startswith("."): continue
-                
                 caminho_real = os.path.join(root, file)
-                caminho_zip = os.path.join(NOME_REPO, file) # Garante estrutura correta
+                caminho_zip = os.path.join(NOME_REPO, file) 
                 zf.write(caminho_real, caminho_zip)
     
-    print(f"✅ ZIP Interno criado: {zip_interno}")
+    print(f"{Cor.VERDE}✅ ZIP Interno (Update) criado.{Cor.RESET}")
 
-    # Copia para raiz
     if os.path.exists(zip_externo): os.remove(zip_externo)
     shutil.copy(zip_interno, zip_externo)
-    print(f"✅ ZIP Externo (Site) criado: {zip_externo}")
+    print(f"{Cor.VERDE}✅ ZIP Externo (Site) criado.{Cor.RESET}")
 
 def gerar_lista_global():
-    print("\n📝 Atualizando addons.xml e MD5 global...")
+    barra_progresso("Gerando Hash MD5 e Lista Global...", tempo=0.8)
     
     if os.path.exists("addons.xml"): os.remove("addons.xml")
     if os.path.exists("addons.xml.md5"): os.remove("addons.xml.md5")
@@ -122,33 +143,37 @@ def gerar_lista_global():
     with open("addons.xml.md5", "w", encoding="utf-8") as f:
         f.write(md5)
         
-    print(f"✅ Lista Global atualizada ({count} addons).")
+    print(f"{Cor.VERDE}✅ Lista Global compilada ({count} addons).{Cor.RESET}")
 
-# --- EXECUÇÃO ---
+# --- MAIN ---
 if __name__ == "__main__":
-    print("---------------------------------------")
-    print("   AUTOMATOR STREAMXTV - MATRIX V5 (FIX)")
-    print("---------------------------------------\n")
+    limpar_tela()
+    banner()
 
     versao_atual = ler_versao_addon()
 
     if versao_atual:
-        print(f"🔎 Versão atual do ADDON: [ {versao_atual} ]")
+        print(f"📦 Versão Atual: {Cor.AMARELO}[ {versao_atual} ]{Cor.RESET}")
+        print(f"{Cor.AZUL}" + "-" * 40 + f"{Cor.RESET}")
         
-        nova_versao = input("👉 Digite a NOVA versão (ex: 2.5.6): ").strip()
+        nova_versao = input(f"{Cor.NEGRITO}👉 Digite a NOVA versão (ex: 2.5.7): {Cor.RESET}").strip()
 
         if nova_versao:
-            # 1. Corrige Header e Atualiza Versão
+            if nova_versao == versao_atual:
+                print(f"\n{Cor.AMARELO}⚠️  A versão é a mesma. Tem certeza?{Cor.RESET}")
+                if input("   [Enter] para continuar ou [S] para sair: ").lower() == 's':
+                    exit()
+            
+            print("\n")
             corrigir_e_atualizar_xml(nova_versao)
-            # 2. Gera Zips
             gerar_zips(nova_versao)
-            # 3. Atualiza lista
             gerar_lista_global()
             
-            print("\n🚀 TUDO PRONTO E CORRIGIDO! PODE SUBIR.")
+            print(f"\n{Cor.AZUL}" + "=" * 40 + f"{Cor.RESET}")
+            print(f"{Cor.VERDE}{Cor.NEGRITO}🚀 SISTEMA ATUALIZADO COM SUCESSO!{Cor.RESET}")
+            print(f"   Pronto para subir para o GitHub.")
+            print(f"{Cor.AZUL}" + "=" * 40 + f"{Cor.RESET}")
         else:
-            print("❌ Cancelado.")
-    else:
-        print("❌ Erro ao ler estrutura do arquivo.")
-        
-    input("\n[ENTER] para sair...")
+            print(f"\n{Cor.VERMELHO}❌ Operação cancelada.{Cor.RESET}")
+    
+    input("\n[Pressione ENTER para fechar]")
