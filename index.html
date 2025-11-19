@@ -7,7 +7,7 @@
     <!-- Fonte estilo Hacker/Tech -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        /* --- CONFIGURAÇÕES VISUAIS (O KODI IGNORA ISSO) --- */
+        /* --- CONFIGURAÇÕES VISUAIS --- */
         :root {
             --neon-green: #0f0;
             --dark-bg: #050505;
@@ -23,7 +23,7 @@
             padding: 20px;
             background-image: 
                 linear-gradient(rgba(0, 20, 0, 0.9), rgba(0, 20, 0, 0.9)),
-                url('https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif'); /* Fundo Matrix sutil */
+                url('https://media.giphy.com/media/U3qYN8S0j3bpK/giphy.gif');
             background-size: cover;
             min-height: 100vh;
             display: flex;
@@ -42,7 +42,6 @@
             border-radius: 5px;
         }
 
-        /* Efeito de scanline de monitor antigo */
         .system-container::before {
             content: "SYSTEM: ONLINE";
             position: absolute;
@@ -75,27 +74,45 @@
         .tutorial-box {
             background: #111;
             border-left: 3px solid var(--neon-green);
-            padding: 15px;
+            padding: 20px; /* Aumentei um pouco o padding interno */
             margin-bottom: 30px;
             color: #ddd;
+        }
+
+        /* --- AQUI ESTÁ O ESPAÇAMENTO QUE VOCÊ PEDIU --- */
+        .tutorial-step {
+            margin-bottom: 15px; /* Espaço entre cada passo */
+            border-bottom: 1px solid #222; /* Linha sutil para separar */
+            padding-bottom: 10px;
+        }
+        
+        .tutorial-step:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .tutorial-box code {
             background: #222;
             color: #fff;
-            padding: 2px 8px;
+            padding: 4px 8px;
             border-radius: 3px;
             font-family: 'Courier New', Courier, monospace;
+            display: inline-block; /* Garante que o fundo preto fique certinho */
+            margin-top: 5px;
+        }
+        
+        .destaque-zip {
+            color: var(--neon-green);
+            font-weight: bold;
         }
 
-        /* --- A LISTA DE ARQUIVOS (A PARTE QUE O KODI LÊ) --- */
+        /* --- A LISTA DE ARQUIVOS --- */
         .repo-files {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        /* Estilizando os links para parecerem botões futuristas */
         .repo-files a {
             display: block;
             text-decoration: none;
@@ -116,10 +133,9 @@
             font-weight: bold;
         }
 
-        /* Ícones via CSS */
         .repo-files a::before { content: "[ARQUIVO] "; opacity: 0.5; font-size: 0.8em; }
-        .repo-files a[href="../"]::before { content: "[VOLTAR] "; }
-        .repo-files a[href$=".zip"]::before { content: "[BAIXAR] "; opacity: 1; }
+        .repo-files a[href$=".zip"]::before { content: "[BAIXAR] "; opacity: 1; font-weight: bold; }
+        .repo-files a[href*="t.me"]::before { content: "[GRUPO] "; opacity: 1; font-weight: bold; }
 
         .footer {
             margin-top: 40px;
@@ -141,19 +157,32 @@
         </div>
 
         <div class="tutorial-box">
-            <strong>COMO INSTALAR:</strong><br><br>
-            1. No Kodi, vá em Ajustes > Gestor de Arquivos.<br>
-            2. Adicione a fonte: <code>https://streamxtv.github.io/matrix/</code><br>
-            3. Instale via Zip: <strong>repository.streamxtv.matrix.zip</strong>
+            <strong style="font-size: 1.2em; display:block; margin-bottom:15px; color: #fff;">COMO INSTALAR:</strong>
+
+            <!-- PASSO 1 -->
+            <div class="tutorial-step">
+                1. No Kodi, vá em <strong>Ajustes > Gestor de Arquivos</strong>.
+            </div>
+
+            <!-- PASSO 2 -->
+            <div class="tutorial-step">
+                2. Adicione a fonte:<br>
+                <code>https://streamxtv.github.io/matrix/</code>
+            </div>
+
+            <!-- PASSO 3 -->
+            <div class="tutorial-step">
+                3. Escolha a pasta <strong>matrix</strong> e instale:<br>
+                <span class="destaque-zip">repository.streamxtv.matrix.zip</span>
+            </div>
         </div>
 
         <h3>ARQUIVOS DO SISTEMA:</h3>
         
-        <!-- AQUI ESTÁ A MÁGICA: Links limpos que o Kodi entende -->
         <div class="repo-files">
-            <a href="../">../ (Diretório Anterior)</a>
-            <a href="addons.xml">addons.xml (Lista de Addons)</a>
-            <a href="addons.xml.md5">addons.xml.md5 (Verificação)</a>
+            <a href="https://t.me/tvstreamx" target="_blank">tvstreamx - suporte</a>
+            <a href="addons.xml">addons.xml</a>
+            <a href="addons.xml.md5">addons.xml.md5</a>
             <a href="repository.streamxtv.matrix.zip">repository.streamxtv.matrix.zip</a>
         </div>
 
