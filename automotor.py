@@ -9,171 +9,168 @@ import sys
 # ==========================================
 # CONFIGURAÇÕES
 # ==========================================
-NOME_REPO = "repository.streamxtv.matrix"
-ARQUIVO_XML = os.path.join(NOME_REPO, "addon.xml")
+NOME_REPO_PRINCIPAL = "repository.streamxtv.matrix"
+# ==========================================
 
-# CORES PARA O TERMINAL
+# CORES
 class Cor:
     VERDE = '\033[92m'
     AMARELO = '\033[93m'
     VERMELHO = '\033[91m'
     AZUL = '\033[94m'
-    NEGRITO = '\033[1m'
+    CIANO = '\033[96m'
     RESET = '\033[0m'
 
 def limpar_tela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def banner():
-    print(Cor.VERDE + Cor.NEGRITO)
+    print(Cor.VERDE)
     print(r"""
-  ____  _                              __   __ _______      __
- / ___|| |_ _ __ ___  __ _ _ __ ___    \ \ / /|_   _\ \    / /
- \___ \| __| '__/ _ \/ _` | '_ ` _ \    \ V /   | |  \ \  / / 
-  ___) | |_| | |  __/ (_| | | | | | |   /   \   | |   \ \/ /  
- |____/ \__|_|  \___|\__,_|_| |_| |_|  /_/ \_\  |_|    \__/   
+   _____  _                                 __  __  _______ __      __
+  / ____|| |                                \ \/ / |__   __|\ \    / /
+ | (___  | |_  _ __  ___   __ _  _ __ ___    \  /     | |    \ \  / / 
+  \___ \ | __|| '__|/ _ \ / _` || '_ ` _ \    /  \    | |     \ \/ /  
+  ____) || |_ | |  |  __/| (_| || | | | | |  / /\ \   | |      \  /   
+ |_____/  \__||_|   \___| \__,_||_| |_| |_| /_/  \_\  |_|       \/    
     """ + Cor.RESET)
-    print(f"{Cor.AZUL}  :: AUTOMATOR MATRIX VERSION :: {Cor.RESET}\n")
+    print(f"{Cor.CIANO}      :: GOD MODE V7 - GERENCIADOR TOTAL :: {Cor.RESET}\n")
 
-def barra_progresso(texto, tempo=0.5):
-    """Cria uma animação de barra de carregamento estilosa"""
-    print(f"{Cor.AMARELO}➤ {texto}{Cor.RESET}")
-    toolbar_width = 40
-    sys.stdout.write("[%s]" % (" " * toolbar_width))
-    sys.stdout.flush()
-    sys.stdout.write("\b" * (toolbar_width+1))
+def ler_xml_addon(pasta):
+    """Lê o ID e a VERSÃO de qualquer addon.xml"""
+    caminho = os.path.join(pasta, "addon.xml")
+    if not os.path.exists(caminho): return None, None
 
-    for i in range(toolbar_width):
-        time.sleep(tempo/toolbar_width) # Ajusta velocidade
-        sys.stdout.write("█")
-        sys.stdout.flush()
-    sys.stdout.write("]\n")
-
-def ler_versao_addon():
-    if not os.path.exists(ARQUIVO_XML):
-        print(f"{Cor.VERMELHO}❌ ERRO CRÍTICO: Arquivo não encontrado: {ARQUIVO_XML}{Cor.RESET}")
-        return None
-
-    with open(ARQUIVO_XML, "r", encoding="utf-8") as f:
+    with open(caminho, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
-    padrao = re.compile(r'(<addon[^>]+version=")([^"]+)(")', re.DOTALL)
-    match = padrao.search(conteudo)
+    # Pega ID e Versão
+    match_id = re.search(r'<addon[^>]+id="([^"]+)"', conteudo)
+    match_ver = re.search(r'<addon[^>]+version="([^"]+)"', conteudo)
 
-    if match:
-        return match.group(2)
-    else:
-        print(f"{Cor.VERMELHO}❌ ERRO: Não consegui ler a versão do Addon.{Cor.RESET}")
-        return None
+    if match_id and match_ver:
+        return match_id.group(1), match_ver.group(1)
+    return None, None
 
-def corrigir_e_atualizar_xml(nova_versao):
-    barra_progresso("Analisando e corrigindo XML...")
+def zipar_addon(pasta, id_addon, versao):
+    """Cria o ZIP de qualquer addon na estrutura correta"""
+    nome_zip = f"{id_addon}-{versao}.zip"
+    caminho_zip = os.path.join(pasta, nome_zip)
     
-    with open(ARQUIVO_XML, "r", encoding="utf-8") as f:
-        conteudo = f.read()
+    # Se o ZIP já existe, não precisa refazer (ganha tempo), a menos que seja o Repo principal
+    if os.path.exists(caminho_zip) and pasta != NOME_REPO_PRINCIPAL:
+        print(f"   📦 {id_addon} v{versao} já está zipado. Pulando...")
+        return
 
-    # Correção do Header 1.0
-    if '<?xml' in conteudo:
-        conteudo = re.sub(r'<\?xml[^>]+\?>', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', conteudo, count=1)
-
-    # Atualização da Versão
-    padrao_addon = re.compile(r'(<addon[^>]+version=")([^"]+)(")', re.DOTALL)
-    novo_conteudo = padrao_addon.sub(f'\\g<1>{nova_versao}\\g<3>', conteudo, count=1)
-
-    with open(ARQUIVO_XML, "w", encoding="utf-8") as f:
-        f.write(novo_conteudo)
+    print(f"   ⚙️  Compactando: {Cor.AMARELO}{id_addon} v{versao}{Cor.RESET}...")
     
-    print(f"{Cor.VERDE}✅ XML Atualizado e Salvo!{Cor.RESET}")
-    return True
-
-def gerar_zips(versao):
-    barra_progresso(f"Compactando arquivos para v{versao}...", tempo=1.0)
-    
-    # Remove antigos
-    for item in os.listdir(NOME_REPO):
-        if item.endswith(".zip"):
-            os.remove(os.path.join(NOME_REPO, item))
-
-    zip_interno = os.path.join(NOME_REPO, f"{NOME_REPO}-{versao}.zip")
-    zip_externo = f"{NOME_REPO}.zip"
-
-    with zipfile.ZipFile(zip_interno, 'w', zipfile.ZIP_DEFLATED) as zf:
-        for root, dirs, files in os.walk(NOME_REPO):
+    with zipfile.ZipFile(caminho_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
+        for root, dirs, files in os.walk(pasta):
             for file in files:
                 if file.endswith(".zip") or file.startswith("."): continue
-                caminho_real = os.path.join(root, file)
-                caminho_zip = os.path.join(NOME_REPO, file) 
-                zf.write(caminho_real, caminho_zip)
+                caminho_abs = os.path.join(root, file)
+                # Cria estrutura pasta/arquivo dentro do zip
+                caminho_rel = os.path.relpath(caminho_abs, start=os.path.dirname(pasta))
+                zf.write(caminho_abs, caminho_rel)
+
+def atualizar_repo_principal():
+    """Lógica exclusiva para atualizar a versão do Repo Principal"""
+    print(f"\n{Cor.AZUL}>>> VERIFICANDO REPOSITÓRIO PRINCIPAL <<<{Cor.RESET}")
+    id_repo, ver_atual = ler_xml_addon(NOME_REPO_PRINCIPAL)
     
-    print(f"{Cor.VERDE}✅ ZIP Interno (Update) criado.{Cor.RESET}")
+    if not id_repo:
+        print("❌ Erro no Repo Principal.")
+        return
 
-    if os.path.exists(zip_externo): os.remove(zip_externo)
-    shutil.copy(zip_interno, zip_externo)
-    print(f"{Cor.VERDE}✅ ZIP Externo (Site) criado.{Cor.RESET}")
-
-def gerar_lista_global():
-    barra_progresso("Gerando Hash MD5 e Lista Global...", tempo=0.8)
+    print(f"📂 Repositório: {id_repo}")
+    print(f"🔢 Versão Atual: {Cor.AMARELO}{ver_atual}{Cor.RESET}")
     
-    if os.path.exists("addons.xml"): os.remove("addons.xml")
-    if os.path.exists("addons.xml.md5"): os.remove("addons.xml.md5")
+    nova = input(f"👉 Digite nova versão (ou ENTER para manter {ver_atual}): ").strip()
+    
+    if nova and nova != ver_atual:
+        # Atualiza XML
+        xml_file = os.path.join(NOME_REPO_PRINCIPAL, "addon.xml")
+        with open(xml_file, "r", encoding="utf-8") as f: content = f.read()
+        
+        # Corrige Header se precisar
+        if '<?xml' in content:
+            content = re.sub(r'<\?xml[^>]+\?>', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', content, count=1)
+            
+        # Troca versão
+        content = re.sub(f'version="{ver_atual}"', f'version="{nova}"', content, count=1)
+        
+        with open(xml_file, "w", encoding="utf-8") as f: f.write(content)
+        print(f"✅ Versão alterada para {nova}")
+        
+        # Remove zip antigo do repo
+        for f in os.listdir(NOME_REPO_PRINCIPAL):
+            if f.endswith(".zip"): os.remove(os.path.join(NOME_REPO_PRINCIPAL, f))
+            
+        # O zip novo será criado no loop geral abaixo
+        
+        # Atualiza o zip da raiz (site)
+        zip_interno = os.path.join(NOME_REPO_PRINCIPAL, f"{NOME_REPO_PRINCIPAL}-{nova}.zip")
+        # Vamos esperar o loop geral criar o zip primeiro, depois copiamos no final
+    else:
+        print("   Mantendo versão atual.")
 
-    xml_final = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<addons>\n"
+def processar_tudo():
+    print(f"\n{Cor.AZUL}>>> PROCESSANDO TODOS OS ADDONS <<<{Cor.RESET}")
+    
+    xml_global = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<addons>\n"
     count = 0
     
+    # Varre todas as pastas
     for item in os.listdir("."):
         if os.path.isdir(item) and not item.startswith(".") and item != "zips":
-            path_xml = os.path.join(item, "addon.xml")
-            if os.path.exists(path_xml):
-                try:
-                    with open(path_xml, "r", encoding="utf-8") as f:
-                        lines = f.read().splitlines()
-                        for line in lines:
-                            if "<?xml" in line: continue
-                            xml_final += line.rstrip() + "\n"
-                        xml_final += "\n"
-                        count += 1
-                except: pass
-
-    xml_final += "</addons>\n"
-
-    with open("addons.xml", "w", encoding="utf-8") as f:
-        f.write(xml_final)
+            # É uma pasta. Tem addon.xml?
+            id_addon, versao = ler_xml_addon(item)
+            
+            if id_addon and versao:
+                # É um addon válido!
+                zipar_addon(item, id_addon, versao)
+                
+                # Adiciona ao XML Global
+                path_xml = os.path.join(item, "addon.xml")
+                with open(path_xml, "r", encoding="utf-8") as f:
+                    lines = f.read().splitlines()
+                    for line in lines:
+                        if "<?xml" in line: continue
+                        xml_global += line.rstrip() + "\n"
+                    xml_global += "\n"
+                count += 1
     
-    md5 = hashlib.md5(xml_final.encode("utf-8")).hexdigest()
-    with open("addons.xml.md5", "w", encoding="utf-8") as f:
-        f.write(md5)
-        
-    print(f"{Cor.VERDE}✅ Lista Global compilada ({count} addons).{Cor.RESET}")
+    xml_global += "</addons>\n"
+    
+    # Salva XML e MD5
+    with open("addons.xml", "w", encoding="utf-8") as f: f.write(xml_global)
+    md5 = hashlib.md5(xml_global.encode("utf-8")).hexdigest()
+    with open("addons.xml.md5", "w", encoding="utf-8") as f: f.write(md5)
+    
+    # Atualiza o ZIP da Raiz (Para o Site) se o repo tiver sido atualizado
+    id_repo, ver_repo = ler_xml_addon(NOME_REPO_PRINCIPAL)
+    zip_repo_interno = os.path.join(NOME_REPO_PRINCIPAL, f"{NOME_REPO_PRINCIPAL}-{ver_repo}.zip")
+    zip_repo_raiz = f"{NOME_REPO_PRINCIPAL}.zip"
+    
+    if os.path.exists(zip_repo_interno):
+        if os.path.exists(zip_repo_raiz): os.remove(zip_repo_raiz)
+        shutil.copy(zip_repo_interno, zip_repo_raiz)
+        print(f"\n✅ ZIP do Site (Raiz) atualizado para v{ver_repo}")
+
+    print(f"\n{Cor.VERDE}✨ SUCESSO! {count} Addons processados e listados.{Cor.RESET}")
 
 # --- MAIN ---
 if __name__ == "__main__":
     limpar_tela()
     banner()
-
-    versao_atual = ler_versao_addon()
-
-    if versao_atual:
-        print(f"📦 Versão Atual: {Cor.AMARELO}[ {versao_atual} ]{Cor.RESET}")
-        print(f"{Cor.AZUL}" + "-" * 40 + f"{Cor.RESET}")
-        
-        nova_versao = input(f"{Cor.NEGRITO}👉 Digite a NOVA versão (ex: 2.5.7): {Cor.RESET}").strip()
-
-        if nova_versao:
-            if nova_versao == versao_atual:
-                print(f"\n{Cor.AMARELO}⚠️  A versão é a mesma. Tem certeza?{Cor.RESET}")
-                if input("   [Enter] para continuar ou [S] para sair: ").lower() == 's':
-                    exit()
-            
-            print("\n")
-            corrigir_e_atualizar_xml(nova_versao)
-            gerar_zips(nova_versao)
-            gerar_lista_global()
-            
-            print(f"\n{Cor.AZUL}" + "=" * 40 + f"{Cor.RESET}")
-            print(f"{Cor.VERDE}{Cor.NEGRITO}🚀 SISTEMA ATUALIZADO COM SUCESSO!{Cor.RESET}")
-            print(f"   Pronto para subir para o GitHub.")
-            print(f"{Cor.AZUL}" + "=" * 40 + f"{Cor.RESET}")
-        else:
-            print(f"\n{Cor.VERMELHO}❌ Operação cancelada.{Cor.RESET}")
     
-    input("\n[Pressione ENTER para fechar]")
+    # 1. Pergunta se quer atualizar o Repo Principal
+    atualizar_repo_principal()
+    
+    # 2. Varre tudo, zipa tudo e gera a lista
+    processar_tudo()
+    
+    print(f"\n{Cor.AZUL}========================================{Cor.RESET}")
+    print(f"   PODE SUBIR TUDO PRO GITHUB!")
+    print(f"{Cor.AZUL}========================================{Cor.RESET}")
+    input("\n[ENTER] para sair...")
