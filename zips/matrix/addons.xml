@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="repository.streamxtv.matrix"
+       name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
+       version="2.6.6"
+       provider-name="CRIADO POR BL4444CK">
+    <requires>
+        <import addon="xbmc.addon" version="12.0.0"/>
+        <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+
+    <extension point="xbmc.addon.repository" name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]">
+        <dir miniversion="18.9.1">
+            <!-- AQUI ESTAVA O DETALHE: Adicionado /zips/matrix/ nos links -->
+            <info compressed="false">https://streamxtv.github.io/matrix/zips/matrix/addons.xml</info>
+            <checksum>https://streamxtv.github.io/matrix/zips/matrix/addons.xml.md5</checksum>
+            <datadir zip="true">https://streamxtv.github.io/matrix/zips/matrix/</datadir>
+        </dir>
+    </extension>
+
+    <extension point="xbmc.addon.metadata">
+        <summary>repositório streamxtv matrix</summary>
+        <description>repositório oficial streamxtv (kodi 19)</description>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
+
 <addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="3.6.3" provider-name="[B]@bl4444ck[/B]">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
@@ -17,34 +46,6 @@
 		<description lang="pt_br">[B]Sua nova central de entretenimento, com acesso a listas de canais, filmes e séries. Nenhum conteúdo é hospedado por nós; o addon apenas organiza links de fontes externas.[/B]</description>
         <platform>all</platform>
         <disclaimer>[B][COLOR red]AVISO LEGAL:[/B][/COLOR] [B]O [COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]é uma ferramenta de busca e agregação. Não hospedamos, possuímos ou temos controle sobre qualquer conteúdo exibido. Todo o material é proveniente de fontes externas na internet, com as quais não temos qualquer afiliação. A responsabilidade pela utilização do conteúdo e pela verificação de sua legalidade é inteiramente do usuário final. Utilize por sua conta e risco.[/B]</disclaimer>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
-</addon>
-
-<addon id="repository.streamxtv.matrix"
-       name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
-       version="2.5.7"
-       provider-name="CRIADO POR BL4444CK">
-    <requires>
-        <import addon="xbmc.addon" version="12.0.0"/>
-        <import addon="xbmc.python" version="3.0.0"/>
-    </requires>
-
-    <extension point="xbmc.addon.repository" name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]">
-        <dir miniversion="18.9.1">
-            <info compressed="false">https://streamxtv.github.io/matrix/addons.xml</info>
-            <checksum>https://streamxtv.github.io/matrix/addons.xml.md5</checksum>
-            <datadir zip="true">https://streamxtv.github.io/matrix/</datadir>
-        </dir>
-    </extension>
-
-    <extension point="xbmc.addon.metadata">
-        <summary>repositório streamxtv matrix</summary>
-        <description>repositório oficial streamxtv (kodi 19)</description>
-        <platform>all</platform>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
