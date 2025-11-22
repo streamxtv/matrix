@@ -34,13 +34,16 @@ def natural_sort_key(s):
 def banner():
     print(Cor.VERDE)
     print(r"""
-  ____  _                              __   __ _______      __
- / ___|| |_ _ __ ___  __ _ _ __ ___    \ \ / /|_   _\ \    / /
- \___ \| __| '__/ _ \/ _` | '_ ` _ \    \ V /   | |  \ \  / / 
-  ___) | |_| | |  __/ (_| | | | | | |   /   \   | |   \ \/ /  
- |____/ \__|_|  \___|\__,_|_| |_| |_|  /_/ \_\  |_|    \__/   
+  _____  ______ _____   ____  
+ |  __ \|  ____|  __ \ / __ \ 
+ | |__) | |__  | |__) | |  | |
+ |  _  /|  __| |  ___/| |  | |
+ | | \ \| |____| |    | |__| |
+ |_|  \_\______|_|     \____/ 
     """ + Cor.RESET)
-    print(f"{Cor.CIANO}   :: GOD MODE V19 - AUTO-LIMPEZA DE ZIPS :: {Cor.RESET}\n")
+    
+    print(f"{Cor.CIANO}      :: SISTEMA DE GESTÃO AUTOMATIZADA :: {Cor.RESET}")
+    print(f"{Cor.AMARELO}          Desenvolvido por bl4444ck {Cor.RESET}\n")
 
 def encontrar_arquivo_ignorando_cx(pasta, nome_arquivo):
     if not os.path.exists(pasta): return None
