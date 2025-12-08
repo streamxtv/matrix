@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="3.9.9" provider-name="[B]CRIADO POR ENTITY404[/B]"> 
+<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="4.1.1" provider-name="[B]CRIADO POR ENTITY404[/B]"> 
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.six" />

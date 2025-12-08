@@ -43,7 +43,7 @@ def banner():
     """ + Cor.RESET)
     
     print(f"{Cor.CIANO}      :: SISTEMA DE GESTÃO AUTOMATIZADA :: {Cor.RESET}")
-    print(f"{Cor.AMARELO}          Desenvolvido por bl4444ck {Cor.RESET}\n")
+    print(f"{Cor.AMARELO}          Desenvolvido por entity404 {Cor.RESET}\n")
 
 def encontrar_arquivo_ignorando_cx(pasta, nome_arquivo):
     if not os.path.exists(pasta): return None
