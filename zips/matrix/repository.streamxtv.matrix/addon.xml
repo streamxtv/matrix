@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.streamxtv.matrix"
        name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
-       version="3.6.6"
-       provider-name="CRIADO POR BL4444CK">
+       version="3.6.7"
+       provider-name="CRIADO POR ENTITY404">
     <requires>
         <import addon="xbmc.addon" version="12.0.0"/>
         <import addon="xbmc.python" version="3.0.0"/>
