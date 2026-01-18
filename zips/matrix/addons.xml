@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
+<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="4.1.4" provider-name="[B]CRIADO POR ENTITY404[/B]">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="script.module.six" />
+        <import addon="script.module.kodi-six" />
+        <import addon="script.module.requests"/>
+        <import addon="script.module.beautifulsoup4"/>
+        <import addon="inputstream.adaptive" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="entity404.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+		<summary lang="pt">[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]É UM PLUGIN FREE.</summary>
+		<description lang="pt_br">[B]Sua nova central de entretenimento, com acesso a listas de canais, filmes e séries. Nenhum conteúdo é hospedado por nós; o addon apenas organiza links de fontes externas.[/B]</description>
+        <platform>all</platform>
+        <disclaimer>[B][COLOR red]AVISO LEGAL:[/B][/COLOR] [B]O [COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]é uma ferramenta de busca e agregação. Não hospedamos, possuímos ou temos controle sobre qualquer conteúdo exibido. Todo o material é proveniente de fontes externas na internet, com as quais não temos qualquer afiliação. A responsabilidade pela utilização do conteúdo e pela verificação de sua legalidade é inteiramente do usuário final. Utilize por sua conta e risco.[/B]</disclaimer>
+        <assets>
+            <icon>icon2.png</icon>
+            <fanart>fanart3.png</fanart>
+        </assets>
+    </extension>
+</addon>
+
+<addon id="repository.peno64" name="peno64 repository" version="1.5" provider-name="peno64">
+    <extension point="xbmc.addon.repository" name="peno64 repository">
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/</datadir>
+        </dir>
+	<dir minversion="18.0" maxversion="18.9.9">
+            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/</datadir>
+        </dir>
+        <dir minversion="19.0.0">
+            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>peno64 repository</summary>
+        <description>peno64 repository</description>
+        <disclaimer></disclaimer>
+        <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+    </extension>
+</addon>
+
 <addon id="repository.streamxtv.matrix"
        name="[COLOR lime]REPOSITORIO[/COLOR] [COLOR red]STREAM[/COLOR][COLOR red]XTV[/COLOR] [COLOR cyan]MATRIX[/COLOR]"
        version="3.6.7"
@@ -28,26 +82,17 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="4.1.2" provider-name="[B]CRIADO POR ENTITY404[/B]">
-    <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
-        <import addon="script.module.six" />
-        <import addon="script.module.kodi-six" />
-        <import addon="script.module.requests"/>
-        <import addon="script.module.beautifulsoup4"/>
-        <import addon="inputstream.adaptive" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="entity404.py">
-        <provides>video</provides>
-    </extension>
+<addon id="script.module.flask"
+       name="Flask"
+       version="2.1.3"
+       provider-name="Joel">
+    <extension point="xbmc.python.module" library="lib"/>
     <extension point="xbmc.addon.metadata">
-		<summary lang="pt">[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]É UM PLUGIN FREE.</summary>
-		<description lang="pt_br">[B]Sua nova central de entretenimento, com acesso a listas de canais, filmes e séries. Nenhum conteúdo é hospedado por nós; o addon apenas organiza links de fontes externas.[/B]</description>
+        <summary>Flask module</summary>
+        <description>Flask module</description>
         <platform>all</platform>
-        <disclaimer>[B][COLOR red]AVISO LEGAL:[/B][/COLOR] [B]O [COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]é uma ferramenta de busca e agregação. Não hospedamos, possuímos ou temos controle sobre qualquer conteúdo exibido. Todo o material é proveniente de fontes externas na internet, com as quais não temos qualquer afiliação. A responsabilidade pela utilização do conteúdo e pela verificação de sua legalidade é inteiramente do usuário final. Utilize por sua conta e risco.[/B]</disclaimer>
         <assets>
-            <icon>icon2.png</icon>
-            <fanart>fanart3.png</fanart>
+            <icon>icon.png</icon>
         </assets>
     </extension>
 </addon>
@@ -92,21 +137,6 @@
   </extension>
 </addon>
 
-<addon id="xbmc.python2" version="3.0.0" provider-name="Team Kodi">
-  <backwards-compatibility abi="2.1.0"/>
-  <requires>
-    <import addon="xbmc.core" version="0.1.0"/>
-  </requires>
-  <extension-point id="script" schema="script.xsd"/>
-  <extension-point id="subtitles" schema="script.xsd"/>
-  <extension-point id="lyrics" schema="script.xsd"/>
-  <extension-point id="weather" schema="script.xsd"/>
-  <extension-point id="library" schema="script.xsd"/>
-  <extension-point id="screensaver" schema="script.xsd"/>
-  <extension-point id="plugin" schema="pluginsource.xsd"/>
-  <extension-point id="context.item" schema="contextitem.xsd"/>
-</addon>
-
 <addon id="script.webfilebrowser" name="[B][COLOR orange]KODI MANAGER[/B][/COLOR]" version="1.1.0" provider-name="CRIADO POR BL4444CK">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
@@ -126,49 +156,19 @@
   </extension>
 </addon>
 
-<addon id="script.module.flask"
-       name="Flask"
-       version="2.1.3"
-       provider-name="Joel">
-    <extension point="xbmc.python.module" library="lib"/>
-    <extension point="xbmc.addon.metadata">
-        <summary>Flask module</summary>
-        <description>Flask module</description>
-        <platform>all</platform>
-        <assets>
-            <icon>icon.png</icon>
-        </assets>
-    </extension>
-</addon>
-
-<addon id="repository.peno64" name="peno64 repository" version="1.5" provider-name="peno64">
-    <extension point="xbmc.addon.repository" name="peno64 repository">
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/repo/zips/</datadir>
-        </dir>
-	<dir minversion="18.0" maxversion="18.9.9">
-            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/leia/zips/</datadir>
-        </dir>
-        <dir minversion="19.0.0">
-            <info compressed="false">https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/peno64/repository.peno64/master/matrix/zips/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>peno64 repository</summary>
-        <description>peno64 repository</description>
-        <disclaimer></disclaimer>
-        <platform>all</platform>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
+<addon id="xbmc.python2" version="3.0.0" provider-name="Team Kodi">
+  <backwards-compatibility abi="2.1.0"/>
+  <requires>
+    <import addon="xbmc.core" version="0.1.0"/>
+  </requires>
+  <extension-point id="script" schema="script.xsd"/>
+  <extension-point id="subtitles" schema="script.xsd"/>
+  <extension-point id="lyrics" schema="script.xsd"/>
+  <extension-point id="weather" schema="script.xsd"/>
+  <extension-point id="library" schema="script.xsd"/>
+  <extension-point id="screensaver" schema="script.xsd"/>
+  <extension-point id="plugin" schema="pluginsource.xsd"/>
+  <extension-point id="context.item" schema="contextitem.xsd"/>
 </addon>
 
 </addons>
