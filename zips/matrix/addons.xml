@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addons>
-<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="4.1.6" provider-name="[B]CRIADO POR ENTITY404[/B]">
+<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="5.0.2" provider-name="[B]CRIADO POR ENTITY404[/B]">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.six" />
@@ -12,14 +12,15 @@
     <extension point="xbmc.python.pluginsource" library="entity404.py">
         <provides>video</provides>
     </extension>
+    <extension point="xbmc.service" library="service.py" start="startup"/>
     <extension point="xbmc.addon.metadata">
 		<summary lang="pt">[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]É UM PLUGIN FREE.</summary>
 		<description lang="pt_br">[B]Sua nova central de entretenimento, com acesso a listas de canais, filmes e séries. Nenhum conteúdo é hospedado por nós; o addon apenas organiza links de fontes externas.[/B]</description>
         <platform>all</platform>
         <disclaimer>[B][COLOR red]AVISO LEGAL:[/B][/COLOR] [B]O [COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]é uma ferramenta de busca e agregação. Não hospedamos, possuímos ou temos controle sobre qualquer conteúdo exibido. Todo o material é proveniente de fontes externas na internet, com as quais não temos qualquer afiliação. A responsabilidade pela utilização do conteúdo e pela verificação de sua legalidade é inteiramente do usuário final. Utilize por sua conta e risco.[/B]</disclaimer>
         <assets>
-            <icon>icon3.png</icon>
-            <fanart>fanart4.png</fanart>
+            <icon>icon.png</icon>
+            <fanart>fanart.png</fanart>
         </assets>
     </extension>
 </addon>
