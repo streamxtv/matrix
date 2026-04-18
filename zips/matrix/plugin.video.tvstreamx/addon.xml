@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="5.1.6" provider-name="[B][COLOR orange]CRIADO POR ENTITY404[/COLOR][/B]"> 
+<addon id="plugin.video.tvstreamx" name="[COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR]" version="5.2.1" provider-name="[B][COLOR orange]CRIADO POR ENTITY404error[/COLOR][/B]"> 
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.six" />
@@ -18,7 +18,7 @@
         <platform>all</platform>
         <disclaimer>[B][COLOR red]AVISO LEGAL:[/B][/COLOR] [B]O [COLOR magenta][B]TV[/COLOR][COLOR yellow]STREAMX[/B][/COLOR] [B]é uma ferramenta de busca e agregação. Todo o material é proveniente de fontes externas na internet. A responsabilidade pela utilização e legalidade do conteúdo é inteiramente do usuário final.[/B]</disclaimer>
         <assets>
-            <icon>icon.png</icon>
+            <icon>tvx.png</icon>
             <fanart>fanart.png</fanart>
         </assets>
     </extension>
